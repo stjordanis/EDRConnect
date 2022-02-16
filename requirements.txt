@@ -1,0 +1,2 @@
+intezer-sdk==1.6.3
+tenacity==8.0.1
