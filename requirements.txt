@@ -1,2 +1,2 @@
-intezer-sdk==1.6.3
+intezer-sdk==1.6.4
 tenacity==8.0.1

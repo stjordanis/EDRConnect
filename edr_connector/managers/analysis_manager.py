@@ -111,10 +111,9 @@ class AnalysisManager:
                           'handled_alerts_count': self.handled_alerts_count}
         if self._exceptions:
             summary_report['exceptions'] = self._exceptions
-        response = get_global_api()._request_with_refresh_expired_access_token(path='/edr-connector/summary',
-                                                                    data=summary_report,
-                                                                    method='POST')
-        print(response.text)
+        get_global_api().request_with_refresh_expired_access_token(path='/edr-connector/summary',
+                                                                   data=summary_report,
+                                                                   method='POST')
         _logger.info(summary_report)
 
     def send_notes(self, file_hash: str, analysis: Analysis):
@@ -128,9 +127,10 @@ class AnalysisManager:
         del self.running_analysis_id_and_alert_ids_by_hash[file_hash]
 
     def get_file_analysis_if_recent_enough(self, file_hash: str) -> Optional[Analysis]:
-        analysis = get_latest_analysis(file_hash=file_hash)
+        analysis = get_latest_analysis(file_hash=file_hash, private_only=True)
         if not analysis:
             return None
+
         days_ago = datetime.datetime.utcnow() - datetime.timedelta(days=self.latest_analysis_limit_in_days)
         analysis_time = datetime.datetime.strptime(analysis.result()['analysis_time'], '%a, %d %b %Y %X GMT')
         if analysis_time < days_ago:
@@ -200,7 +200,7 @@ class AnalysisManager:
 
             for file_hash, analysis in analyses.copy():
                 try:
-                    analysis.result()
+                    analysis.wait_for_completion(timeout=0)
                     _logger.info(f'analysis completed {analysis.analysis_id}')
                     self.send_notes(file_hash, analysis)
                     analyses.remove((file_hash, analysis))
