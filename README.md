@@ -1,2 +1,2 @@
-# EDRConnector
-EDR Connector
+# EDRConnect
+EDR Connect

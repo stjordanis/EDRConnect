@@ -8,6 +8,7 @@ from typing import Optional
 from typing import Tuple
 
 from intezer_sdk import api
+from intezer_sdk import consts
 from intezer_sdk import errors
 from intezer_sdk.analysis import Analysis
 from intezer_sdk.analysis import get_latest_analysis
@@ -199,13 +200,10 @@ class AnalysisManager:
                 break
 
             for file_hash, analysis in analyses.copy():
-                try:
-                    analysis.wait_for_completion(timeout=0)
+                if analysis.check_status() == consts.AnalysisStatusCode.FINISH:
                     _logger.info(f'analysis completed {analysis.analysis_id}')
                     self.send_notes(file_hash, analysis)
                     analyses.remove((file_hash, analysis))
-                except errors.AnalysisIsStillRunning:
-                    continue
 
     def handle_alerts(self):
         while True:
