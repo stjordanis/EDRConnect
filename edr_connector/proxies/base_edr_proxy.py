@@ -79,7 +79,7 @@ class BaseEDRProxy:
         raise NotImplementedError()
 
     @abc.abstractmethod
-    def fetch_latest_alerts(self, hours: int = 72):
+    def fetch_latest_alerts(self, hours: int):
         raise NotImplementedError()
 
     @abc.abstractmethod

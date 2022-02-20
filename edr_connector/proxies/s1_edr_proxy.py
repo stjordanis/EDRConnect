@@ -1,20 +1,22 @@
 import datetime
 import io
-import logging
-import requests
 import secrets
 import time
 from http import HTTPStatus
 from io import BytesIO
-from proxies.base_edr_proxy import AlertInfo
-from proxies.base_edr_proxy import BaseEDRProxy
-from proxies.base_edr_proxy import NoteInfo
 from typing import List
 from typing import Optional
 from typing import Tuple
-from utils.base_url_session import BaseUrlSession
 
-_logger = logging.getLogger(__name__)
+import requests
+
+from edr_connector.proxies.base_edr_proxy import AlertInfo
+from edr_connector.proxies.base_edr_proxy import BaseEDRProxy
+from edr_connector.proxies.base_edr_proxy import NoteInfo
+from edr_connector.utils.base_url_session import BaseUrlSession
+from edr_connector.utils.log import get_logger
+
+_logger = get_logger()
 
 ACTIVITIES_ROUTE = 'web/api/v2.1/activities'
 THREATS_ROUTE = '/web/api/v2.1/threats'
@@ -27,7 +29,8 @@ SEND_NOTES_ROUTE = '/web/api/v2.1/threats/notes'
 class S1EDRProxy(BaseEDRProxy):
     def fetch_latest_alerts(self, hours: int) -> List[AlertInfo]:
         hours_ago = datetime.datetime.utcnow() - datetime.timedelta(hours=hours)
-        response = self.get(THREATS_ROUTE, params={'createdAt__gte': hours_ago.isoformat()})
+        response = self.get(THREATS_ROUTE,
+                            params={'createdAt__gte': hours_ago.isoformat(), 'limit': 1000, 'sortOrder': 'desc'})
         return self.normalize_alerts_info(response.json()['data'])
 
     # Check if endpoint is offline
@@ -83,7 +86,7 @@ class S1EDRProxy(BaseEDRProxy):
             _logger.error(error_text)
             raise RuntimeError(error_text)
 
-    def _fetch_file(self, alert_id: str) -> Tuple[str, str]:
+    def _fetch_file(self, alert_id: str) -> Tuple[Optional[str], Optional[str]]:
         zip_password = secrets.token_urlsafe(32)
         fetch_file_time = datetime.datetime.utcnow() - datetime.timedelta(seconds=5)
 
@@ -92,7 +95,7 @@ class S1EDRProxy(BaseEDRProxy):
                   json={'data': {'password': zip_password}, 'filter': {'ids': [alert_id]}})
 
         for count in range(self.file_download_num_of_retries):
-            _logger.debug(f'waiting for s1 to fetch the file from the endpoint ({count})')
+            _logger.debug(f'waiting for s1 to fetch the file from the endpoint ({count}) for alert {alert_id}')
             time.sleep(self.file_download_timeout_in_seconds)
             response = self.get(ACTIVITIES_ROUTE,
                                 params={'threatIds': alert_id,
@@ -105,11 +108,11 @@ class S1EDRProxy(BaseEDRProxy):
                 if download_url:
                     return download_url, zip_password
         else:
-            err_msg = ('Time out fetching the file, this is most likely when the endpoint is powered off'
+            err_msg = ('Time out fetching the file, this is most likely when the endpoint is powered off '
                        'or the agent is shut down')
 
             _logger.error(err_msg)
-            raise RuntimeError(err_msg)
+            return None, None
 
     def normalize_alerts_info(self, alerts_info: List[dict]) -> List[AlertInfo]:
         return [AlertInfo(alert_info['id'],

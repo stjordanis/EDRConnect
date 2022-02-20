@@ -1,5 +1,4 @@
 import datetime
-import logging
 import time
 from enum import Enum
 from typing import Dict
@@ -8,17 +7,18 @@ from typing import Optional
 from typing import Tuple
 
 from intezer_sdk import api
-from intezer_sdk import consts
-from intezer_sdk import errors
 from intezer_sdk.analysis import Analysis
 from intezer_sdk.analysis import get_latest_analysis
 from intezer_sdk.api import get_global_api
+from intezer_sdk.errors import HashDoesNotExistError
 from intezer_sdk.util import get_analysis_summary
+from requests import HTTPError
 
 from edr_connector.proxies.base_edr_proxy import AlertInfo
 from edr_connector.proxies.s1_edr_proxy import S1EDRProxy
+from edr_connector.utils.log import get_logger
 
-_logger = logging.getLogger(__name__)
+_logger = get_logger()
 
 
 class EDRType(Enum):
@@ -85,6 +85,10 @@ class AnalysisManager:
         if alert_info.agent_os_type not in SUPPORTED_OS_TYPE:
             return True
 
+        if not alert_info.file_hash:
+            _logger.debug(f'Alert {alert_info.alert_id} has no file hash')
+            return True
+
         if alert_info.alert_id in self.handled_alerts:
             _logger.debug(f'Alert {alert_info.alert_id} already handled, skipping')
             return True
@@ -102,9 +106,19 @@ class AnalysisManager:
         alert_ids.add(alert_id)
         self.running_analysis_id_and_alert_ids_by_hash[file_hash] = (analysis_id, alert_ids)
 
-    def analyze_by_file(self, alert_id: str) -> Analysis:
-        file, zip_password = self.edr_proxy.download_file(alert_id)
-        analysis = Analysis(file_stream=file, file_name=f'{alert_id}.zip', zip_password=zip_password)
+    def analyze_by_file(self, alert_info: AlertInfo) -> Optional[Analysis]:
+        if not alert_info.is_agent_active:
+            _logger.info('agent is offline, cannot download, skipping')
+            return None
+
+        analysis = None
+        try:
+            file, zip_password = self.edr_proxy.download_file(alert_info.alert_id)
+            if file:
+                analysis = Analysis(file_stream=file, file_name=f'{alert_info.alert_id}.zip', zip_password=zip_password)
+        except Exception as ex:
+            self.handle_exception(ex)
+
         return analysis
 
     def send_summary_report(self):
@@ -131,6 +145,11 @@ class AnalysisManager:
         analysis = get_latest_analysis(file_hash=file_hash, private_only=True)
         if not analysis:
             return None
+        try:
+            analysis.get_root_analysis()
+        except HTTPError:
+            _logger.info(f'{analysis.analysis_id} is not a composed analysis.')
+            return None
 
         days_ago = datetime.datetime.utcnow() - datetime.timedelta(days=self.latest_analysis_limit_in_days)
         analysis_time = datetime.datetime.strptime(analysis.result()['analysis_time'], '%a, %d %b %Y %X GMT')
@@ -146,19 +165,16 @@ class AnalysisManager:
         try:
             _logger.info(f'Analyzing alert {alert_info.alert_id}')
             analysis = self.get_file_analysis_if_recent_enough(alert_info.file_hash)
-
             if not analysis:
                 try:
+                    _logger.info('analyze by hash')
                     analysis = Analysis(file_hash=alert_info.file_hash)
                     analysis.send()
-                except errors.HashDoesNotExistError:
-                    if not alert_info.is_agent_active:
-                        _logger.info('agent is offline, cannot download, skipping')
-                        return None
-
-                    _logger.info('starting to analyze file')
-                    analysis = self.analyze_by_file(alert_info.alert_id)
-                    analysis.send(requester=self.edr_type.value.lower())
+                except HashDoesNotExistError:
+                    _logger.info('analyze by file')
+                    analysis = self.analyze_by_file(alert_info)
+                    if analysis:
+                        analysis.send(requester=self.edr_type.value.lower())
             return analysis
 
         except Exception as ex:
@@ -200,10 +216,13 @@ class AnalysisManager:
                 break
 
             for file_hash, analysis in analyses.copy():
-                if analysis.check_status() == consts.AnalysisStatusCode.FINISH:
+                try:
+                    analysis.wait_for_completion(timeout=0)
                     _logger.info(f'analysis completed {analysis.analysis_id}')
                     self.send_notes(file_hash, analysis)
                     analyses.remove((file_hash, analysis))
+                except TimeoutError:
+                    continue
 
     def handle_alerts(self):
         while True:
