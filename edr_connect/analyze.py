@@ -1,7 +1,7 @@
 import argparse
 import os
 
-from edr_connector.utils.utils import create_config_from_file
+from edr_connect.utils.utils import create_config_from_file
 from managers.analysis_manager import AnalysisManager
 from managers.analysis_manager import EDRType
 

@@ -10,11 +10,11 @@ from typing import Tuple
 
 import requests
 
-from edr_connector.proxies.base_edr_proxy import AlertInfo
-from edr_connector.proxies.base_edr_proxy import BaseEDRProxy
-from edr_connector.proxies.base_edr_proxy import NoteInfo
-from edr_connector.utils.base_url_session import BaseUrlSession
-from edr_connector.utils.log import get_logger
+from edr_connect.proxies.base_edr_proxy import AlertInfo
+from edr_connect.proxies.base_edr_proxy import BaseEDRProxy
+from edr_connect.proxies.base_edr_proxy import NoteInfo
+from edr_connect.utils.base_url_session import BaseUrlSession
+from edr_connect.utils.log import get_logger
 
 _logger = get_logger()
 

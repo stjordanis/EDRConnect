@@ -14,9 +14,9 @@ from intezer_sdk.errors import HashDoesNotExistError
 from intezer_sdk.util import get_analysis_summary
 from requests import HTTPError
 
-from edr_connector.proxies.base_edr_proxy import AlertInfo
-from edr_connector.proxies.s1_edr_proxy import S1EDRProxy
-from edr_connector.utils.log import get_logger
+from edr_connect.proxies.base_edr_proxy import AlertInfo
+from edr_connect.proxies.s1_edr_proxy import S1EDRProxy
+from edr_connect.utils.log import get_logger
 
 _logger = get_logger()
 

@@ -1,0 +1,13 @@
+config_enabled: True
+edr_api_key: <EDR_API_KEY>
+intezer_api_key: <INTEZER_API_KEY>
+type: <EDR_TYPE>
+base_address: <EDR_BASE_ADDRESS>
+ssl_verification: <SSL_VERIFICATION>
+latest_edr_alerts_limit_in_hours: <LATEST_EDR_ALERTS_LIMIT_IN_HOURS>
+latest_analysis_limit_in_days: <LATEST-ANALYSIS-LIMIT_IN_DAYS>
+cooldown_in_minutes: <COOLDOWN_BETWEEN_RUNS_IN_MINUTES>
+http_timeout_in_seconds: <HTTP_TIMEOUT_IN_SECONDS>
+download_retries: <FILE_DOWNLOAD_NUM_OF_RETRIES>
+download_timeout_in_seconds: <FILE_DOWNLOAD_TIMOUT_IN_SECONDS>
+
