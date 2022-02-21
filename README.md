@@ -14,6 +14,7 @@ A Fully automated EDR alert to Intezer Analyze Analysis Scanner.
 ```bash
 docker pull intezer/edr-connect
 ```
+[config.yaml]
 
 ```bash
 docker run -it -v $(pwd)/config.yaml:/code/config/config.yaml  intezer/edr-connect 
