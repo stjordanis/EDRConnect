@@ -4,7 +4,7 @@ A Fully automated EDR alert to Intezer Analyze Analysis Scanner.
 # Supported EDRs
 * SentinelOne
 
-# Features
+# Flow
 * Regonize new EDR Alerts -> Analyze in Intezer Analyze -> Write a note on EDR alert with Intezer's analysis information.
 
 # Description
