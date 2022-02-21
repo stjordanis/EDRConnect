@@ -7,7 +7,7 @@ from managers.analysis_manager import EDRType
 
 if __name__ == '__main__':
     config = create_config_from_file('./config/config.yaml')
-    if not config.get('config_enabled'):
+    if not config:
         parser = argparse.ArgumentParser(description='Analyze argument parse')
         parser.add_argument('--edr-api-key', default=os.environ.get('EDR_API_KEY'))
         parser.add_argument('--intezer-api-key', default=os.environ.get('INTEZER_API_KEY'))
