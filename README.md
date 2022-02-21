@@ -1,5 +1,5 @@
 # EDRConnect
-A Fully automated EDR alert to Intezer Analyze Analysis Scanner.
+A fully automated EDR alert to Intezer Analyze Analysis Scanner.
 
 # Supported EDRs
 * SentinelOne
