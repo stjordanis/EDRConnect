@@ -14,7 +14,7 @@ A Fully automated EDR alert to Intezer Analyze Analysis Scanner.
 ```bash
 docker pull intezer/edr-connect
 ```
-* Download this [config](config.yaml) file to do execution dir.
+* Download the [config](config.yaml) file to do execution dir.
 * Change the config settings 
 
 ```bash
