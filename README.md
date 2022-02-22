@@ -33,4 +33,6 @@ docker run -it -v $(pwd)/config.yaml:/code/config/config.yaml  intezer/edr-conne
 ```
 
 
+https://user-images.githubusercontent.com/63956508/155152834-68725f47-0dd1-4db2-a759-54101cc12c56.mov
+
 
