@@ -19,7 +19,9 @@ This app was developed in order to provide a lightweight and simple way to autom
 
 The app is cautious about quota consumption and is configurable in that regard.([config](config.yaml#L38))
 
-
+# Support
+EDR Connect hosted by Intezer for our **Enterpise** users.
+Please contact our [support](support@intezer.com). 
 
 # Docker Support
 ```bash
