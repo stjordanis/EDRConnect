@@ -7,9 +7,6 @@ A fully automated EDR alert to Intezer Analyze Analysis Scanner.
 # Coming Soon
 * CrowdStike support
 
-# Flow
-* Pull new EDR Alerts -> Analyze in Intezer Analyze -> Write a note on EDR alert with Intezer's analysis information
-
 # Description
 This app was developed in order to support a lightweight and simple way to automate EDR alert triage using Intezer Analyze.
 
