@@ -169,7 +169,7 @@ class AnalysisManager:
                 try:
                     _logger.info('analyze by hash')
                     analysis = Analysis(file_hash=alert_info.file_hash)
-                    analysis.send()
+                    analysis.send(requester=self.edr_type.value.lower())
                 except HashDoesNotExistError:
                     _logger.info('analyze by file')
                     analysis = self.analyze_by_file(alert_info)
