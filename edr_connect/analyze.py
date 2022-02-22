@@ -46,7 +46,7 @@ if __name__ == '__main__':
         cooldown = config.get('cooldown_in_minutes', 15)
         http_timeout = config.get('http_timeout_in_seconds', 60)
         download_retries = config.get('download_retries', 3)
-        download_timeout = config.get('download_timeout_in_seconds', 10)
+        download_timeout = config.get('download_timeout_in_seconds', 30)
 
     analysis_manager = AnalysisManager(edr_api_key,
                                        intezer_api_key,
