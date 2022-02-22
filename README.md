@@ -23,7 +23,7 @@ The app is cautious about quota consumption and is configurable in that regard.(
 ```bash
 docker pull intezer/edr-connect
 ```
-* Download the [config](config.yaml) file to do execution dir.
+* Copy the [config](config.yaml) file to your execution dir.
 * Change the config settings 
 
 ```bash
