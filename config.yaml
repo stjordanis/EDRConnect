@@ -57,6 +57,6 @@ base_address: <EDR_BASE_ADDRESS>
 
 
 ## Download requests timeout
-## default: 10 (seconds)
+## default: 30 (seconds)
 #download_timeout_in_seconds: <FILE_DOWNLOAD_TIMOUT_IN_SECONDS>
 
