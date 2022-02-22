@@ -13,6 +13,9 @@ This app was developed in order to support a lightweight and simple way to autom
 * The app automatically detects new EDR alerts and creates Intezer Analyze analyses.
 * The analysis information is then written on a note in the EDR's alert.
 
+![Screen Shot 2022-02-22 at 13 08 24](https://user-images.githubusercontent.com/63956508/155120445-ce29c53e-1353-4426-9871-c1e9ce418759.png)
+
+
 The app is cautious about quota consumption and is configurable in that regard.([config](config.yaml#L7))
 
 
@@ -27,7 +30,4 @@ docker pull intezer/edr-connect
 ```bash
 docker run -it -v $(pwd)/config.yaml:/code/config/config.yaml  intezer/edr-connect 
 ```
-
-
-![Screen Shot 2022-02-22 at 12 25 41](https://user-images.githubusercontent.com/63956508/155113278-fc57a9bc-b91f-4833-bf5b-6c2c807b5bc2.png)
 
