@@ -5,7 +5,7 @@ A fully automated EDR alert to Intezer Analyze Analysis Scanner.
 * SentinelOne
 
 # Coming Soon
-* CrowdStike support
+* CrowdStrike support
 
 # Description
 ![Screen Shot 2022-02-22 at 13 08 24](https://user-images.githubusercontent.com/63956508/155120445-ce29c53e-1353-4426-9871-c1e9ce418759.png)
