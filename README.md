@@ -16,7 +16,7 @@ This app was developed in order to support a lightweight and simple way to autom
 * The app automatically detects new EDR alerts and creates Intezer Analyze analyses.
 * The analysis information is then written on a note in the EDR's alert.
 
-The app is cautious about quota consumption and is configurable in that regard.([config](config.yaml#L18))
+The app is cautious about quota consumption and is configurable in that regard.([config](config.yaml#L7))
 
 
 
