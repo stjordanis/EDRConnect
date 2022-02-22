@@ -19,10 +19,10 @@ base_address: <EDR_BASE_ADDRESS>
 #ssl_verification: <SSL_VERIFICATION>
 
 
-## The Connector fetches the all alerts that were created in the last <latest_edr_alerts_limit_in_hours> hours
+## The Connector fetches all of the alerts that were created in the last <latest_edr_alerts_limit_in_hours> hours
 ## The app recognizes which alerts were already handled and will not reanalyze them
 ## This mainly influences 2 scenarios:
-## 1. When running this app for the first time, how far back to you want to analyze your alerts
+## 1. When running this app for the first time, how far back do you want to analyze your alerts
 ## 2. How long should we retry In case the analysis failed for some reason
 ##   (the endpoint machine is down and we couldn't fetch the file, timeout during fetching file etc)     
 ## default: 72 (hours)
