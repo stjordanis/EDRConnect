@@ -48,7 +48,8 @@ https://user-images.githubusercontent.com/63956508/155297688-4cef6dc8-7c2d-4b4c-
 
 # Kubernetes deployment
 You can use our [template kubernetes deployment file](deployment-edr-connect.yaml) for easier deployment
-You'll need to create a new namespace
+You'll need to replace the nodepool placeholder with your desired node pool.
+You'll need to create a new namespace called edr 
 ```bash
 kubectl create namespace edr
 ```
