@@ -24,6 +24,10 @@ EDR Connect only supports Enterprise and trial users.
 EDR Connect can be hosted by Intezer for our **Enterpise** users.
 Please contact our [support](support@intezer.com). 
 
+# Monitoring
+We advise to add health check monitoring.
+You can see an exmaple for grafana monitoring [here](grafana_query.json)
+
 # Docker Support
 ```bash
 docker pull intezer/edr-connect
