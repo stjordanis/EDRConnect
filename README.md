@@ -27,7 +27,7 @@ Please contact our [support](support@intezer.com)
 
 # Monitoring
 We advise to add health check monitoring
-You can see an exmaple for grafana monitoring [here](grafana_query.json)
+You can see an example for grafana monitoring [here](grafana_query.json)
 
 # Docker Support
 ```bash
