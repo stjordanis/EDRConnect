@@ -34,9 +34,12 @@ docker pull intezer/edr-connect
 ```bash
 docker run -it -v $(pwd)/config.yaml:/code/config/config.yaml  intezer/edr-connect 
 
-https://user-images.githubusercontent.com/63956508/155297394-33633dcb-6d4f-4467-973c-46e420b3a64c.mov
-
-
 ```
+
+
+
+https://user-images.githubusercontent.com/63956508/155297688-4cef6dc8-7c2d-4b4c-a11e-3a2a4aa5156b.mov
+
+
 
 
