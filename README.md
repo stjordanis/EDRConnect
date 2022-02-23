@@ -37,7 +37,7 @@ docker pull intezer/edr-connect
 * Change the config settings 
 
 ```bash
-docker run -it -v $(pwd)/config.yaml:/code/config/config.yaml  intezer/edr-connect 
+docker run -v $(pwd)/config.yaml:/code/config/config.yaml  intezer/edr-connect 
 
 ```
 
