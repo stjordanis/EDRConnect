@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: edr-connect
-  
-  pace: edr
+  namespace: edr
 spec:
   replicas: 1
   strategy:
