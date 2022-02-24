@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: edr-connect
-  namespace: edr
+  namespace: intezer-edr-connect
 spec:
   replicas: 1
   strategy:
@@ -18,7 +18,7 @@ spec:
       name: edr-connect
       labels:
         app: edr-connect
-        env: edr
+        env: intezer-edr-connect
     spec:
       volumes:
         - name: config-volume
