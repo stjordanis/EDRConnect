@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: edr-connect
-  namespace: <NAMESPACE>
+  namespace: edr
 spec:
   replicas: 1
   strategy:
@@ -18,7 +18,7 @@ spec:
       name: edr-connect
       labels:
         app: edr-connect
-        env: <ENV>
+        env: edr
     spec:
       volumes:
         - name: config-volume
