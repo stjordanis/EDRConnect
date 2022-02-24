@@ -29,7 +29,9 @@ Please contact our [support](support@intezer.com)
 We advise to add health check monitoring
 You can see an example for grafana monitoring [here](grafana_query.json)
 
-# Docker Support
+# Quick start
+
+**Docker Support**
 ```bash
 docker pull intezer/edr-connect
 ```
@@ -46,7 +48,7 @@ docker run -v $(pwd)/config.yaml:/code/config/config.yaml  intezer/edr-connect
 https://user-images.githubusercontent.com/63956508/155297688-4cef6dc8-7c2d-4b4c-a11e-3a2a4aa5156b.mov
 
 
-# Kubernetes deployment
+**Kubernetes deployment**
 You can use our [template kubernetes deployment file](deployment-edr-connect.yaml) for easier deployment
 You'll need to replace the nodepool placeholder with your desired node pool.
 You'll need to create a new namespace called edr 
