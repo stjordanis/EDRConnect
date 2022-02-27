@@ -27,11 +27,11 @@ Intezer EDR Connect deployment can be managed by Intezer or set up with Docker o
 Intezer can host EDR Connect for enterprise users. To set it up, please get in touch with our [support](support@intezer.com).
 
 ## Set up with Docker
-1. Create a working directory: ```bash mkdir intezer-edr-connect ```
-2. Pull the docker image: ```bash docker pull intezer/edr-connect ```
+1. Create a working directory: ```mkdir intezer-edr-connect ```
+2. Pull the docker image: ```docker pull intezer/edr-connect ```
 3. Copy the [config](config.yaml) file to your working directory (intezer-edr-connect, name it config.yaml)
 4. Change the config settings
-5. Run: ```bash docker run -v $(pwd)/config.yaml:/code/config/config.yaml intezer/edr-connect ```
+5. Run: ```docker run -v $(pwd)/config.yaml:/code/config/config.yaml intezer/edr-connect ```
 
 ## Set up with Kubernetes
 You can use our Kubernetes deployment [file template](deployment-edr-connect.yaml).
