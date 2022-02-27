@@ -1,5 +1,6 @@
-# Intezer EDRConnect
+# Intezer EDR Connect
 Automate EDR alert triage with incident file scanning by Intezer.
+
 To tackle the alert fatigue most security teams experience, we have developed Intezer EDR Connect to provide you with a lightweight and simple way to automate EDR alert triage. We use [Intezer](https://www.intezer.com/) to enrich file-based alerts in your EDR and accelerate the investigation and prioritization processes.
 Intezer analyzes files using both static and dynamic techniques. It detonates the file in a sandbox, extracts memory modules, and compares the extracted code against an extensive genome database. Intezer’s unique code reuse detection technology allows you to determine the file verdict and its [classification and origin](https://analyze.intezer.com/files/7e840af1a1cac73a67f9b3e22563161feb6d16a529189e776f6661ba84d4c34c).
 
@@ -33,6 +34,12 @@ Intezer can host EDR Connect for enterprise users. To set it up, please get in t
 4. Change the config settings
 5. Run: ```docker run -v $(pwd)/config.yaml:/code/config/config.yaml intezer/edr-connect ```
 
+
+https://user-images.githubusercontent.com/63956508/155881445-8277286f-cbcd-4a09-9cae-c51075cfcbf4.mov
+
+
+
+
 ## Set up with Kubernetes
 You can use our Kubernetes deployment [file template](deployment-edr-connect.yaml).
 1. Replace the <nodepool> placeholder with your desired node pool.
@@ -57,12 +64,3 @@ See [Grafana monitoring example](grafana_query.json).
 * **Incident tagging and prioritization**: Intezer EDR Connect provides relevant tags and a risk score to support prioritization
 * **Automated triage action**: Provide the ability to set an “automation policy” to take actions based on Intezer’s results (e.g. change incident priority, quarantine the machine, mark the incident as FP, ...)
 * **EDR advanced response queries**: Get EDR specific queries (based on IOCs, detection opps, and YARA) to search for infections and other variants directly in your EDR.
-
-
-
-
-
-
-
-
-
